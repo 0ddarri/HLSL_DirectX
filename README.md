@@ -1,2 +1,5 @@
 # HLSL_DirectX
- Shader Programming
+
+쉐이더 프로그래밍을 배우면서 정리한 내용들을 올립니다.
+
+📘 : 포프의 쉐이더 프로그래밍 입문
