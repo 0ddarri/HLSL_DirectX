@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>F:\Shader\HLSL\Study\TextureMapping\Debug\BasicFramework.exe</FullPath>
+      <FullPath>D:\Github\HLSL_DirectX\2_TextureMapping\Debug\BasicFramework.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

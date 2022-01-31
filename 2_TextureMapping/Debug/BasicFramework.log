@@ -1,3 +1,7 @@
 ﻿cl : 명령줄 warning D9035: 'Gm' 옵션은 더 이상 사용되지 않으므로 이후 릴리스에서 제거될 예정입니다.
   ShaderFramework.cpp
-  BasicFramework.vcxproj -> F:\Shader\HLSL\Study\TextureMapping\Debug\BasicFramework.exe
+D:\Github\HLSL_DirectX\2_TextureMapping\ShaderFramework.cpp(126,21): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
+D:\Github\HLSL_DirectX\2_TextureMapping\ShaderFramework.cpp(131,21): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
+D:\Github\HLSL_DirectX\2_TextureMapping\ShaderFramework.cpp(136,21): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
+ShaderFramework.obj : warning LNK4075: '/EDITANDCONTINUE'이(가) '/SAFESEH' 사양으로 인해 무시됩니다.
+  BasicFramework.vcxproj -> D:\Github\HLSL_DirectX\2_TextureMapping\Debug\BasicFramework.exe

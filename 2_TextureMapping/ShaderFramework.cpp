@@ -120,6 +120,22 @@ void ProcessInput(HWND hWnd, WPARAM keyPress)
 	case VK_ESCAPE:
 		PostMessage(hWnd, WM_DESTROY, 0L, 0L);
 		break;
+
+	case VK_F1:
+	{
+		gRotationX += 0.04;
+	}
+	break;
+	case VK_F2:
+	{
+		gRotationY += 0.04;
+	}
+	break;
+	case VK_F3:
+	{
+		gRotationZ += 0.04;
+	}
+	break;
 	}
 }
 
@@ -135,6 +151,18 @@ void PlayDemo()
 // 게임로직 업데이트
 void Update()
 {
+	if (gRotationX > 2 * PI)
+	{
+		gRotationX -= 2 * PI;
+	}
+	if (gRotationY > 2 * PI)
+	{
+		gRotationY -= 2 * PI;
+	}
+	if (gRotationZ > 2 * PI)
+	{
+		gRotationZ -= 2 * PI;
+	}
 }
 
 //------------------------------------------------------------
@@ -174,14 +202,16 @@ void RenderScene()
 		ASPECT_RATIO, NEAR_PLANE, FAR_PLANE);
 
 	// 월드행렬
+	D3DXMATRIXA16 matWorldX;
+	D3DXMATRIXA16 matWorldY;
+	D3DXMATRIXA16 matWorldZ;
 	D3DXMATRIXA16 matWorld;
 
-	gRotationY += 0.4f * PI / 180.0f;
-	if (gRotationY > 2 * PI)
-	{
-		gRotationY -= 2 * PI;
-	}
-	D3DXMatrixRotationY(&matWorld, gRotationY);
+	D3DXMatrixRotationX(&matWorldX, gRotationX);
+	D3DXMatrixRotationY(&matWorldY, gRotationY);
+	D3DXMatrixRotationZ(&matWorldZ, gRotationZ);
+
+	matWorld = matWorldX * matWorldY * matWorldZ;
 
 	gpTextureMappingShader->SetMatrix("gWorldMatrix", &matWorld);
 	gpTextureMappingShader->SetMatrix("gViewMatrix", &matView);

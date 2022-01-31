@@ -4,3 +4,7 @@ F:\Shader\HLSL\Study\01_DxFramework\Debug\BasicFramework.exe
 F:\Shader\HLSL\Study\01_DxFramework\Debug\BasicFramework.pdb
 F:\Shader\HLSL\Study\TextureMapping\Debug\BasicFramework.exe
 F:\Shader\HLSL\Study\TextureMapping\Debug\BasicFramework.pdb
+F:\Shader\HLSL\Study\TextureMapping_practice\Debug\BasicFramework.exe
+F:\Shader\HLSL\Study\TextureMapping_practice\Debug\BasicFramework.pdb
+D:\Github\HLSL_DirectX\2_TextureMapping\Debug\BasicFramework.exe
+D:\Github\HLSL_DirectX\2_TextureMapping\Debug\BasicFramework.pdb

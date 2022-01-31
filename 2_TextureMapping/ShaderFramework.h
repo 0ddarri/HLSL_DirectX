@@ -57,3 +57,5 @@ LPD3DXEFFECT gpTextureMappingShader = NULL;
 LPDIRECT3DTEXTURE9 gpEarthTexture = NULL;
 
 float gRotationY = 0.0f;
+float gRotationX = 0.0f;
+float gRotationZ = 0.0f;
