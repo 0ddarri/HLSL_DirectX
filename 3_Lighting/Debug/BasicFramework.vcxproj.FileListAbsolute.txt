@@ -1,0 +1,8 @@
+F:\Shader\HLSL\ShaderPrimerKR-master\01_DxFramework\Debug\BasicFramework.exe
+F:\Shader\HLSL\ShaderPrimerKR-master\01_DxFramework\Debug\BasicFramework.pdb
+F:\Shader\HLSL\Study\01_DxFramework\Debug\BasicFramework.exe
+F:\Shader\HLSL\Study\01_DxFramework\Debug\BasicFramework.pdb
+F:\Shader\HLSL\Study\TextureMapping\Debug\BasicFramework.exe
+F:\Shader\HLSL\Study\TextureMapping\Debug\BasicFramework.pdb
+F:\Shader\HLSL\Study\Lighting\Debug\BasicFramework.exe
+F:\Shader\HLSL\Study\Lighting\Debug\BasicFramework.pdb
