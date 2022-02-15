@@ -7,6 +7,7 @@ private:
 public:
 	LPD3DXEFFECT colorShader;
 	LPD3DXEFFECT lightShader;
+	LPD3DXEFFECT textureMappingShader;
 	void LoadShaders();
 	void Release();
 };

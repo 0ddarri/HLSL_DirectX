@@ -8,10 +8,12 @@
 #include "Resources.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "Texture.h"
 #include "Util.h"
 
 Mesh* mesh = new Mesh();
 Shader* shader = new Shader();
+Texture* texture = new Texture();
 
 //--------------------------------------------------------------------------------------
 // Rejects any D3D9 devices that aren't acceptable to the app by returning false
@@ -45,8 +47,9 @@ bool CALLBACK ModifyDeviceSettings( DXUTDeviceSettings* pDeviceSettings, void* p
 HRESULT CALLBACK OnD3D9CreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_DESC* pBackBufferSurfaceDesc,
                                      void* pUserContext )
 {
-    mesh->LoadSphere(30, 10, 10);
+    mesh->Initialize();
     shader->LoadShaders();
+    texture->LoadTextures();
     Util::GetIns()->SwitchInitialize();
     return S_OK;
 }
@@ -108,23 +111,27 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
         case 1:
         {
             effect = shader->colorShader;
-            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
-            effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
-            effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
         }
         break;
         case 2:
         {
+            effect = shader->textureMappingShader;
+            effect->SetTexture((D3DXHANDLE)"gDiffuseTexture", texture->diffuseTexture);
+        }
+        break;
+        case 3:
+        {
             effect = shader->lightShader;
-            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
-            effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
-            effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
-            shader->colorShader->SetVector((D3DXHANDLE)"gWorldLightPosition", &sun);
+            effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &sun);
         }
         break;
         default:
             break;
         }
+
+        effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
+        effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
+        effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
 
         UINT passnum;
         effect->Begin(&passnum, NULL);
@@ -165,6 +172,7 @@ void CALLBACK OnD3D9DestroyDevice( void* pUserContext )
 {
     mesh->Release();
     shader->Release();
+    texture->Release();
 }
 
 

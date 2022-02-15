@@ -29,6 +29,9 @@
     <Filter Include="Framework\Util">
       <UniqueIdentifier>{35722fe4-585a-4e27-8035-286b9ca5ff47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Texture">
+      <UniqueIdentifier>{3048529f-5a75-485c-8662-fe6bd0a4baa9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -111,6 +114,9 @@
     <ClCompile Include="Util.cpp">
       <Filter>Framework\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Framework\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -136,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Framework\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Framework\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
