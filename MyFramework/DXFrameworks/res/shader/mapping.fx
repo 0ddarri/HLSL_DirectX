@@ -34,6 +34,7 @@ struct PS_INPUT
 };
 
 texture gDiffuseTexture;
+// sampler2D : 2d  텍스처에서 텍셀 하나를 구해올 때 사용
 sampler2D gDiffuseSampler = sampler_state
 {
     Texture = (gDiffuseTexture);
