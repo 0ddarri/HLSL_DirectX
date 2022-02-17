@@ -20,7 +20,7 @@ LPD3DXEFFECT Shader::LoadShader(std::wstring path)
 void Shader::LoadShaders()
 {
 	colorShader = LoadShader(L"res/shader/ColorShader.fx");
-	lightShader = LoadShader(L"res/shader/Lighting.fx");
+	lightShader = LoadShader(L"res/shader/light.fx");
 	textureMappingShader = LoadShader(L"res/shader/mapping.fx");
 }
 
