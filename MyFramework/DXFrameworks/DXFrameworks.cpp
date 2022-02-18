@@ -65,6 +65,7 @@ HRESULT CALLBACK OnD3D9ResetDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFA
     return S_OK;
 }
 
+float yRotation = 0.0f;
 
 //--------------------------------------------------------------------------------------
 // Handle updates to the scene.  This is called regardless of which D3D API is used
@@ -72,6 +73,7 @@ HRESULT CALLBACK OnD3D9ResetDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFA
 void CALLBACK OnFrameMove( double fTime, float fElapsedTime, void* pUserContext )
 {
     Util::GetIns()->SwitchShader();
+    yRotation += fElapsedTime;
 }
 
 
@@ -86,7 +88,7 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
     V( pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB( 0, 45, 50, 170 ), 1.0f, 0 ) );
 
     // Render the scene
-    if( SUCCEEDED( pd3dDevice->BeginScene() ) )
+    if (SUCCEEDED(pd3dDevice->BeginScene()))
     {
         D3DXMATRIXA16 matView;
         D3DXVECTOR3 vEyePos(0.0f, 0.0f, -200.0f); // 카메라 위치
@@ -98,40 +100,84 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
         D3DXMatrixPerspectiveFovLH(&matProjection, FOV,
             ASPECT_RATIO, NEAR_PLANE, FAR_PLANE);
 
-        // 월드행렬
+        //--------------------------------------------------//
         D3DXMATRIXA16 matWorld;
         D3DXMatrixIdentity(&matWorld);
 
+        D3DXMATRIX mTranslate;
+        D3DXMatrixTranslation(&mTranslate, 0, 0, 0);
+
+        D3DXMATRIX mScale;
+        D3DXMatrixScaling(&mScale, 1, 1, 1);
+        D3DXMATRIX mEulerAngle;
+
+        D3DXMATRIX mRotX;
+        D3DXMATRIX mRotY;
+        D3DXMATRIX mRotZ;
+        D3DXMatrixRotationX(&mRotX, D3DXToRadian(0));
+        D3DXMatrixRotationY(&mRotY, yRotation);
+        D3DXMatrixRotationZ(&mRotZ, D3DXToRadian(0));
+        mEulerAngle = mRotZ * mRotX * mRotY;
+    
+        matWorld = mEulerAngle * mScale * mTranslate;
+        DXUTGetD3D9Device()->SetTransform(D3DTS_WORLD, &matWorld); // 쉐이더 코드좀 볼수있나 일단 수고ㅋㅋ넹
+        //--------------------------------------------------//
+
+        DEVICE->SetTransform(D3DTS_VIEW, &matView);
+        DEVICE->SetTransform(D3DTS_PROJECTION, &matProjection);
+
         D3DXVECTOR4 sun(700.0f, 500.0f, -500.0f, 1.0f);
+        D3DXVECTOR4 eyePos(vEyePos);
+
+        D3DXMATRIX shaderMatWorld;
+        D3DXMatrixIdentity(&shaderMatWorld);
 
         LPD3DXEFFECT effect;
-
         switch (Util::GetIns()->num)
         {
         case 1:
         {
             effect = shader->colorShader;
+            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
+            effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
+            effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
         }
         break;
         case 2:
         {
             effect = shader->textureMappingShader;
+            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
+            effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
+            effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
+
             effect->SetTexture((D3DXHANDLE)"gDiffuseTexture", texture->diffuseTexture);
         }
         break;
         case 3:
         {
             effect = shader->lightShader;
+            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
+            effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
+            effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
+            
             effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &sun);
+        }
+        break;
+        case 4:
+        {
+            effect = shader->specularlightShader;
+            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &shaderMatWorld);
+            effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
+            effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
+
+            effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &sun);
+            effect->SetVector((D3DXHANDLE)"gWorldCameraPosition", &eyePos);
+            effect->SetFloat((D3DXHANDLE)"gSpecularPower", 20.0f);
         }
         break;
         default:
             break;
         }
-
-        effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
-        effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
-        effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
 
         UINT passnum;
         effect->Begin(&passnum, NULL);

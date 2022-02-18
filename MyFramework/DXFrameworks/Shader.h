@@ -6,8 +6,9 @@ private:
 	LPD3DXEFFECT LoadShader(std::wstring path);
 public:
 	LPD3DXEFFECT colorShader;
-	LPD3DXEFFECT lightShader;
 	LPD3DXEFFECT textureMappingShader;
+	LPD3DXEFFECT lightShader;
+	LPD3DXEFFECT specularlightShader;
 	void LoadShaders();
 	void Release();
 };
