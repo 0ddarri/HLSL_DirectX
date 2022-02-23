@@ -6,8 +6,11 @@ class Mesh : Base
 private:
 	LPD3DXMESH gSphere;
 	LPD3DXMESH gSphere_X;
+	LPD3DXMESH gTeapot_X;
 
 	std::list<LPD3DXMESH> meshlist;
+
+	int meshSwitch = 'Q';
 protected:
 public:
 	Mesh();
@@ -17,6 +20,7 @@ public:
 
 	void Initialize();
 
+	void Update(float deltaTime);
 	void Render();
 
 	void Release();

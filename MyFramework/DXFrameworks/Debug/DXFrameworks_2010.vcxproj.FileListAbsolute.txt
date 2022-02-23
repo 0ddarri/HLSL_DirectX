@@ -1,1 +1,5 @@
 D:\Shader\HLSL\MyFramework\DXFrameworks\Debug\DXFrameworks.exe
+E:\Shader\HLSL\MyFramework\DXFrameworks\Debug\DXFrameworks.exe
+E:\Shader\HLSL\MyFramework\DXFrameworks\Debug\DXFrameworks.pdb
+D:\Github\HLSL_DirectX\MyFramework\DXFrameworks\Debug\DXFrameworks.exe
+D:\Github\HLSL_DirectX\MyFramework\DXFrameworks\Debug\DXFrameworks.pdb

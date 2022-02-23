@@ -9,8 +9,10 @@ protected:
 public:
 	LPDIRECT3DTEXTURE9 diffuseTexture;
 
-	void LoadTextures();
+	LPDIRECT3DTEXTURE9 brickDiffuse;
+	LPDIRECT3DTEXTURE9 brickSpecular;
 
+	void LoadTextures();
 	void Release();
 };
 

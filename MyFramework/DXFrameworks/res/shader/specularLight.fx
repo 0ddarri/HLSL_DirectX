@@ -35,7 +35,7 @@ VS_OUTPUT vs_main(VS_INPUT Input)
 
     Output.mDiffuse = dot(-lightDir, worldNormal); // 내적으로 디퓨즈세기 구함
 
-    Output.mReflection = reflect(lightDir, Input.mNormal);
+    Output.mReflection = reflect(lightDir, worldNormal);
 
     Output.mViewDir = normalize(Output.mPosition.xyz - gWorldCameraPosition.xyz);
 

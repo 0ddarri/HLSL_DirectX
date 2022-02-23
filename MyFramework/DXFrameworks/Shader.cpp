@@ -23,6 +23,7 @@ void Shader::LoadShaders()
 	lightShader = LoadShader(L"res/shader/light.fx");
 	textureMappingShader = LoadShader(L"res/shader/mapping.fx");
 	specularlightShader = LoadShader(L"res/shader/specularLight.fx");
+	specularMappingShader = LoadShader(L"res/shader/specularmapping.fx");
 }
 
 void Shader::Release()

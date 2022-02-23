@@ -73,6 +73,7 @@ float yRotation = 0.0f;
 void CALLBACK OnFrameMove( double fTime, float fElapsedTime, void* pUserContext )
 {
     Util::GetIns()->SwitchShader();
+    mesh->Update(fElapsedTime);
     yRotation += fElapsedTime;
 }
 
@@ -166,13 +167,34 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
         case 4:
         {
             effect = shader->specularlightShader;
-            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &shaderMatWorld);
+            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
             effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
             effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
 
             effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &sun);
             effect->SetVector((D3DXHANDLE)"gWorldCameraPosition", &eyePos);
             effect->SetFloat((D3DXHANDLE)"gSpecularPower", 20.0f);
+        }
+        break;
+        case 5:
+        {
+            effect = shader->specularMappingShader;
+
+            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
+            effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
+            effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
+
+            D3DXVECTOR4 gWorldLightPosition(500, 500, -500, 1);
+            D3DXVECTOR4 gWorldCameraPosition(vEyePos);
+            D3DXVECTOR4 gLightColor(1,1,1,1);
+
+            effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &gWorldLightPosition);
+            effect->SetVector((D3DXHANDLE)"gWorldCameraPosition", &gWorldCameraPosition);
+            effect->SetVector((D3DXHANDLE)"gLightColor", &gLightColor);
+
+            effect->SetTexture((D3DXHANDLE)"DiffuseMap_Tex", texture->brickDiffuse);
+            effect->SetTexture((D3DXHANDLE)"SpecularMap_Tex", texture->brickSpecular);
+
         }
         break;
         default:

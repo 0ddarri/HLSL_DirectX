@@ -40,12 +40,38 @@ void Mesh::Initialize()
 {
 	gSphere = LoadSphere(30, 20, 20);
 	gSphere_X = LoadMesh(L"res/model/sphere.x");
+	gTeapot_X = LoadMesh(L"res/model/teapot.x");
+}
+
+void Mesh::Update(float deltaTime)
+{
+	if (DXUTWasKeyPressed('Q'))
+	{
+		meshSwitch = 'Q';
+	}
+	if (DXUTWasKeyPressed('W'))
+	{
+		meshSwitch = 'W';
+	}
 }
 
 void Mesh::Render()
 {
-	//gSphere->DrawSubset(0);
-	gSphere_X->DrawSubset(0);
+	switch (meshSwitch)
+	{
+	case 'Q':
+	{
+		gSphere_X->DrawSubset(0);
+	}
+	break;
+	case 'W':
+	{
+		gTeapot_X->DrawSubset(0);
+	}
+	break;
+	default:
+		break;
+	}
 }
 
 void Mesh::Release()
