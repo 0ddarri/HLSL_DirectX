@@ -11,4 +11,7 @@ F1 F2...키로 토글을 해 쉐이더를 변경할 수 있습니다
 ## - 2022-02-17
   Lighting Shader hlsl 코드 수정
 ## - 2022-02-18
-  Specular Lighting Shasder 추가
+  Specular Lighting Shader 추가
+## - 2022-02-23
+  Specular Lighting Shader 수정
+  Specular Mapping Shader 추가
