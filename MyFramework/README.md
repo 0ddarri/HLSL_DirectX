@@ -21,3 +21,6 @@
   * Specular Lighting Shader 수정
   * Specular Mapping Shader 추가
   * 모델 변경기능 추가
+## - 2022-02-24
+  * Specular Mapping Shader 직접 작성
+  * Specular Mapping shader 월드, 뷰, 프로젝션 행렬 통합계산버전 추가
