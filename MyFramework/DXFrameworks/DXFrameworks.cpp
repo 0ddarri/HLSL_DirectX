@@ -180,9 +180,16 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
         {
             effect = shader->specularMappingShader;
 
-            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
-            effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
-            effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
+            D3DXMATRIXA16 matWorldView;
+            D3DXMATRIXA16 matWorldViewProj;
+            D3DXMatrixMultiply(&matWorldView, &matWorld, &matView);
+            D3DXMatrixMultiply(&matWorldViewProj, &matWorldView, &matProjection);
+
+            D3DXMATRIXA16 matInvWorld;
+            D3DXMatrixTranspose(&matInvWorld, &matWorld);
+
+            effect->SetMatrix((D3DXHANDLE)"gWorldViewProjectionMatrix", &matWorldViewProj);
+            effect->SetMatrix((D3DXHANDLE)"gInvWorld", &matInvWorld);
 
             D3DXVECTOR4 gWorldLightPosition(500, 500, -500, 1);
             D3DXVECTOR4 gWorldCameraPosition(vEyePos);
@@ -192,8 +199,8 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
             effect->SetVector((D3DXHANDLE)"gWorldCameraPosition", &gWorldCameraPosition);
             effect->SetVector((D3DXHANDLE)"gLightColor", &gLightColor);
 
-            effect->SetTexture((D3DXHANDLE)"DiffuseMap_Tex", texture->brickDiffuse);
-            effect->SetTexture((D3DXHANDLE)"SpecularMap_Tex", texture->brickSpecular);
+            effect->SetTexture((D3DXHANDLE)"DiffuseMap", texture->brickDiffuse);
+            effect->SetTexture((D3DXHANDLE)"SpecularMap", texture->brickSpecular);
 
         }
         break;
