@@ -10,6 +10,7 @@ public:
 	LPD3DXEFFECT lightShader;
 	LPD3DXEFFECT specularlightShader;
 	LPD3DXEFFECT specularMappingShader;
+	LPD3DXEFFECT toonShader;
 
 	void LoadShaders();
 	void Release();

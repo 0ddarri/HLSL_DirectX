@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>E:\Shader\HLSL\MyFramework\DXFrameworks\Debug\DXFrameworks.exe</FullPath>
+      <FullPath>D:\Github\HLSL_DirectX\MyFramework\DXFrameworks\Debug\DXFrameworks.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

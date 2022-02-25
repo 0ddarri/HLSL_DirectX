@@ -121,17 +121,28 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
         mEulerAngle = mRotZ * mRotX * mRotY;
     
         matWorld = mEulerAngle * mScale * mTranslate;
-        DXUTGetD3D9Device()->SetTransform(D3DTS_WORLD, &matWorld); // 쉐이더 코드좀 볼수있나 일단 수고ㅋㅋ넹
-        //--------------------------------------------------//
 
+        DEVICE->SetTransform(D3DTS_WORLD, &matWorld);
         DEVICE->SetTransform(D3DTS_VIEW, &matView);
         DEVICE->SetTransform(D3DTS_PROJECTION, &matProjection);
+        //--------------------------------------------------//
 
         D3DXVECTOR4 sun(700.0f, 500.0f, -500.0f, 1.0f);
         D3DXVECTOR4 eyePos(vEyePos);
 
-        D3DXMATRIX shaderMatWorld;
-        D3DXMatrixIdentity(&shaderMatWorld);
+        //--------------------------------------------------//
+        D3DXMATRIXA16 matWorldView;
+        D3DXMATRIXA16 matWorldViewProj;
+        D3DXMatrixMultiply(&matWorldView, &matWorld, &matView);
+        D3DXMatrixMultiply(&matWorldViewProj, &matWorldView, &matProjection);
+        //--------------------------------------------------//
+        D3DXVECTOR4 gWorldLightPosition(500, 500, -500, 1);
+        D3DXVECTOR4 gWorldCameraPosition(vEyePos);
+        D3DXVECTOR4 gLightColor(1, 1, 1, 1);
+        //--------------------------------------------------//
+
+        D3DXMATRIXA16 matInvWorld;
+        D3DXMatrixTranspose(&matInvWorld, &matWorld);
 
         LPD3DXEFFECT effect;
         switch (Util::GetIns()->num)
@@ -180,20 +191,8 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
         {
             effect = shader->specularMappingShader;
 
-            D3DXMATRIXA16 matWorldView;
-            D3DXMATRIXA16 matWorldViewProj;
-            D3DXMatrixMultiply(&matWorldView, &matWorld, &matView);
-            D3DXMatrixMultiply(&matWorldViewProj, &matWorldView, &matProjection);
-
-            D3DXMATRIXA16 matInvWorld;
-            D3DXMatrixTranspose(&matInvWorld, &matWorld);
-
             effect->SetMatrix((D3DXHANDLE)"gWorldViewProjectionMatrix", &matWorldViewProj);
             effect->SetMatrix((D3DXHANDLE)"gInvWorld", &matInvWorld);
-
-            D3DXVECTOR4 gWorldLightPosition(500, 500, -500, 1);
-            D3DXVECTOR4 gWorldCameraPosition(vEyePos);
-            D3DXVECTOR4 gLightColor(1,1,1,1);
 
             effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &gWorldLightPosition);
             effect->SetVector((D3DXHANDLE)"gWorldCameraPosition", &gWorldCameraPosition);
@@ -202,6 +201,17 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
             effect->SetTexture((D3DXHANDLE)"DiffuseMap", texture->brickDiffuse);
             effect->SetTexture((D3DXHANDLE)"SpecularMap", texture->brickSpecular);
 
+        }
+        break;
+        case 6:
+        {
+            effect = shader->toonShader;
+
+            effect->SetMatrix((D3DXHANDLE)"gWorldViewProjectionMatrix", &matWorldViewProj);
+            effect->SetMatrix((D3DXHANDLE)"gInvWorld", &matInvWorld);
+
+            effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &gWorldLightPosition);
+            effect->SetVector((D3DXHANDLE)"gLightColor", &gLightColor);
         }
         break;
         default:

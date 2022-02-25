@@ -22,11 +22,11 @@ void Util::SwitchInitialize()
 	AddSwitch(VK_F3, 3);
 	AddSwitch(VK_F4, 4);
 	AddSwitch(VK_F5, 5);
+	AddSwitch(VK_F6, 6);
 }
 
 Util::ShaderKey::ShaderKey(int k, int n) : settednum(n), key(k)
 {
-
 }
 
 void Util::ShaderKey::Checkkey()
