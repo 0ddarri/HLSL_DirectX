@@ -126,10 +126,7 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
         DEVICE->SetTransform(D3DTS_VIEW, &matView);
         DEVICE->SetTransform(D3DTS_PROJECTION, &matProjection);
         //--------------------------------------------------//
-
-        D3DXVECTOR4 sun(700.0f, 500.0f, -500.0f, 1.0f);
         D3DXVECTOR4 eyePos(vEyePos);
-
         //--------------------------------------------------//
         D3DXMATRIXA16 matWorldView;
         D3DXMATRIXA16 matWorldViewProj;
@@ -162,7 +159,7 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
             effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
             effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
 
-            effect->SetTexture((D3DXHANDLE)"gDiffuseTexture", texture->diffuseTexture);
+            effect->SetTexture((D3DXHANDLE)"gDiffuseTexture", texture->earthDiffuse);
         }
         break;
         case 3:
@@ -172,7 +169,7 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
             effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
             effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
             
-            effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &sun);
+            effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &gWorldLightPosition);
         }
         break;
         case 4:
@@ -182,7 +179,7 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
             effect->SetMatrix((D3DXHANDLE)"gViewMatrix", &matView);
             effect->SetMatrix((D3DXHANDLE)"gProjectionMatrix", &matProjection);
 
-            effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &sun);
+            effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &gWorldLightPosition);
             effect->SetVector((D3DXHANDLE)"gWorldCameraPosition", &eyePos);
             effect->SetFloat((D3DXHANDLE)"gSpecularPower", 20.0f);
         }
@@ -212,6 +209,23 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
 
             effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &gWorldLightPosition);
             effect->SetVector((D3DXHANDLE)"gLightColor", &gLightColor);
+        }
+        break;
+        case 7:
+        {
+            effect = shader->normalMappingShader;
+
+            effect->SetMatrix((D3DXHANDLE)"gWorldViewProjectionMatrix", &matWorldViewProj);
+            effect->SetMatrix((D3DXHANDLE)"gWorldMatrix", &matWorld);
+            effect->SetVector((D3DXHANDLE)"gWorldLightPosition", &gWorldLightPosition);
+            effect->SetVector((D3DXHANDLE)"gWorldCameraPosition", &gWorldCameraPosition);
+            effect->SetVector((D3DXHANDLE)"gLightColor", &gLightColor);
+
+            effect->SetTexture((D3DXHANDLE)"DiffuseMap", texture->brickDiffuse);
+            effect->SetTexture((D3DXHANDLE)"SpecularMap", texture->brickSpecular);
+            effect->SetTexture((D3DXHANDLE)"NormalMap", texture->brickNormal);
+
+            effect->SetFloat((D3DXHANDLE)"gSpecularPower", 20.0f);
         }
         break;
         default:

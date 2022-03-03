@@ -23,6 +23,7 @@ void Util::SwitchInitialize()
 	AddSwitch(VK_F4, 4);
 	AddSwitch(VK_F5, 5);
 	AddSwitch(VK_F6, 6);
+	AddSwitch(VK_F7, 7);
 }
 
 Util::ShaderKey::ShaderKey(int k, int n) : settednum(n), key(k)

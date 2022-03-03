@@ -19,9 +19,11 @@ LPDIRECT3DTEXTURE9 Texture::LoadTexture(std::wstring path)
 
 void Texture::LoadTextures()
 {
-	diffuseTexture = LoadTexture(L"res/texture/Earth.jpg");
+	earthDiffuse = LoadTexture(L"res/texture/Earth.jpg");
+
 	brickDiffuse = LoadTexture(L"res/texture/Fieldstone.tga");
 	brickSpecular = LoadTexture(L"res/texture/specular.jpg");
+	brickNormal = LoadTexture(L"res/texture/normal.tga");
 }
 
 void Texture::Release()

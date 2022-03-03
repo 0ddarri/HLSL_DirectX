@@ -41,6 +41,7 @@ void Mesh::Initialize()
 	gSphere = LoadSphere(30, 20, 20);
 	gSphere_X = LoadMesh(L"res/model/sphere.x");
 	gTeapot_X = LoadMesh(L"res/model/teapot.x");
+	gSphere_Tangent = LoadMesh(L"res/model/SphereWithTangent.x");
 }
 
 void Mesh::Update(float deltaTime)
@@ -52,6 +53,10 @@ void Mesh::Update(float deltaTime)
 	if (DXUTWasKeyPressed('W'))
 	{
 		meshSwitch = 'W';
+	}
+	if (DXUTWasKeyPressed('E'))
+	{
+		meshSwitch = 'E';
 	}
 }
 
@@ -67,6 +72,11 @@ void Mesh::Render()
 	case 'W':
 	{
 		gTeapot_X->DrawSubset(0);
+	}
+	break;
+	case 'E':
+	{
+		gSphere_Tangent->DrawSubset(0);
 	}
 	break;
 	default:
