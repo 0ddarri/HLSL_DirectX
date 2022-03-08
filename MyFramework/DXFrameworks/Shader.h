@@ -12,6 +12,7 @@ public:
 	LPD3DXEFFECT specularMappingShader;
 	LPD3DXEFFECT toonShader;
 	LPD3DXEFFECT normalMappingShader;
+	LPD3DXEFFECT environmentMappingShader;
 
 	void LoadShaders();
 	void Release();

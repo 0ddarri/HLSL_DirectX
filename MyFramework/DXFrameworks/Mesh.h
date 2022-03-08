@@ -8,6 +8,7 @@ private:
 	LPD3DXMESH gSphere_X;
 	LPD3DXMESH gTeapot_X;
 	LPD3DXMESH gSphere_Tangent;
+	LPD3DXMESH gTeapot_Tangent;
 
 	std::list<LPD3DXMESH> meshlist;
 

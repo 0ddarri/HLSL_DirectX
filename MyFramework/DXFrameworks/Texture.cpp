@@ -17,6 +17,21 @@ LPDIRECT3DTEXTURE9 Texture::LoadTexture(std::wstring path)
 	return texture;
 }
 
+LPDIRECT3DCUBETEXTURE9 Texture::LoadCubeMapTexture(std::wstring path)
+{
+	LPDIRECT3DCUBETEXTURE9 cubeTexture;
+
+	auto isFail = D3DXCreateCubeTextureFromFile(DEVICE, path.c_str(), &cubeTexture);
+	if (FAILED(isFail))
+	{
+		std::wcout << "CubeMap Load Fail : " << path << std::endl;
+		return nullptr;
+	}
+	std::wcout << "CubeMap Load Success : " << path << std::endl;
+	cubeMapList.push_back(cubeTexture);
+	return cubeTexture;
+}
+
 void Texture::LoadTextures()
 {
 	earthDiffuse = LoadTexture(L"res/texture/Earth.jpg");
@@ -24,6 +39,8 @@ void Texture::LoadTextures()
 	brickDiffuse = LoadTexture(L"res/texture/Fieldstone.tga");
 	brickSpecular = LoadTexture(L"res/texture/specular.jpg");
 	brickNormal = LoadTexture(L"res/texture/normal.tga");
+
+	en_Snow = LoadCubeMapTexture(L"res/texture/Snow_ENV.dds");
 }
 
 void Texture::Release()
@@ -33,4 +50,10 @@ void Texture::Release()
 		it->Release();
 	}
 	texturelist.clear();
+
+	for (LPDIRECT3DCUBETEXTURE9 it : cubeMapList)
+	{
+		it->Release();
+	}
+	cubeMapList.clear();
 }

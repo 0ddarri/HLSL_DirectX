@@ -26,6 +26,7 @@ void Shader::LoadShaders()
 	specularMappingShader = LoadShader(L"res/shader/MySpecularMapping_matrixMix.fx");
 	toonShader = LoadShader(L"res/shader/toonShader.fx");
 	normalMappingShader = LoadShader(L"res/shader/NormalMapping.fx");
+	environmentMappingShader = LoadShader(L"res/shader/EnvironmentMapping.fx");
 }
 
 void Shader::Release()
