@@ -28,4 +28,5 @@
   * Toon Shader 추가
 ## - 2022-03-08
   * Normal Mapping Shader 추가
+  * CubeMap Loader 추가
   * Environment Mapping Shader 추가
