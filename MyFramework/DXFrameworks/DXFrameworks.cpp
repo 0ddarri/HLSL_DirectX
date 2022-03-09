@@ -238,10 +238,10 @@ void CALLBACK OnD3D9FrameRender( IDirect3DDevice9* pd3dDevice, double fTime, flo
             effect->SetVector((D3DXHANDLE)"gWorldCameraPosition", &gWorldCameraPosition);
             effect->SetVector((D3DXHANDLE)"gLightColor", &gLightColor);
 
-            effect->SetTexture((D3DXHANDLE)"DiffuseMap_Tex", texture->brickDiffuse);
-            effect->SetTexture((D3DXHANDLE)"SpecularMap_Tex", texture->brickSpecular);
-            effect->SetTexture((D3DXHANDLE)"NormalMap_Tex", texture->brickNormal);
-            effect->SetTexture((D3DXHANDLE)"EnvironmentMap_Tex", texture->en_Snow);
+            effect->SetTexture((D3DXHANDLE)"DiffuseMap", texture->brickDiffuse);
+            effect->SetTexture((D3DXHANDLE)"SpecularMap", texture->brickSpecular);
+            effect->SetTexture((D3DXHANDLE)"NormalMap", texture->brickNormal);
+            effect->SetTexture((D3DXHANDLE)"EnvironmentMap", texture->en_Snow);
 
             effect->SetFloat((D3DXHANDLE)"gSpecularPower", 20.0f);
         }
